@@ -1,6 +1,6 @@
-/* Tiny TFT Graphics Library - see http://www.technoblogy.com/show?3WAI
+/* Tiny TFT Graphics Library v2 - see http://www.technoblogy.com/show?3WAI
 
-   David Johnson-Davies - www.technoblogy.com - 6th May 2022
+   David Johnson-Davies - www.technoblogy.com - 7th May 2022
    
    CC BY 4.0
    Licensed under a Creative Commons Attribution 4.0 International license: 
@@ -315,9 +315,9 @@ void FillRect (int w, int h) {
 void DrawRect (int w, int h) {
   int x1 = xpos, y1 = ypos;
   FillRect(w-1, 1); MoveTo(x1, y1+1);
-  FillRect(1, h-1); MoveTo(1, h-1);
-  FillRect(w-1, 1); MoveTo(w-1, 0);
-  FillRect(1, h-1); MoveTo(x1, y1);
+  FillRect(1, h-1); MoveTo(x1+1, y1+h-1);
+  FillRect(w-1, 1); MoveTo(x1+w-1, y1);
+  FillRect(1, h-1);
   xpos = x1; ypos = y1;
 }
 
