@@ -230,7 +230,7 @@ void InitDisplay () {
   PORT_HIGH(1<<dc | 1<<cs | 1<<sck);       // Outputs high
   PORT_TOGGLE(1<<cs);
   Command(0x01);                           // Software reset
-  delay(150);                              // delay 150 ms
+  delay(250);                              // delay 250 ms
   Command(0x36); Data(rotate<<5 | bgr<<3); // Set orientation and rgb/bgr
   Command(0x3A); Data(0x55);               // Set color mode - 16-bit color
   Command(0x20+invert);                    // Invert
