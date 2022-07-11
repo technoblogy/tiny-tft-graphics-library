@@ -1,6 +1,6 @@
-/* Tiny TFT Graphics Library v2 - see http://www.technoblogy.com/show?3WAI
+/* Tiny TFT Graphics Library v4 - see http://www.technoblogy.com/show?3WAI
 
-   David Johnson-Davies - www.technoblogy.com - 7th May 2022
+   David Johnson-Davies - www.technoblogy.com - 11th July 2022
    
    CC BY 4.0
    Licensed under a Creative Commons Attribution 4.0 International license: 
@@ -44,7 +44,7 @@ int const xsize = 128, ysize = 128, xoff = 2, yoff = 1, invert = 0, rotate = 3, 
 // int const xsize = 128, ysize = 128, xoff = 2, yoff = 1, invert = 0, rotate = 3, bgr = 1;
 
 // Adafruit 0.96" 160x80 display
-// int const xsize = 160, ysize = 80, xoff = 0, yoff = 24, invert = 0, rotate = 6, bgr = 1;
+// int const xsize = 160, ysize = 80, xoff = 0, yoff = 24, invert = 0, rotate = 6, bgr = 0;
 
 // AliExpress 0.96" 160x80 display
 // int const xsize = 160, ysize = 80, xoff = 1, yoff = 26, invert = 1, rotate = 0, bgr = 1;
@@ -52,10 +52,10 @@ int const xsize = 128, ysize = 128, xoff = 2, yoff = 1, invert = 0, rotate = 3, 
 // Adafruit 1.8" 160x128 display
 // int const xsize = 160, ysize = 128, xoff = 0, yoff = 0, invert = 0, rotate = 0, bgr = 1;
 
-// AliExpress 1.8" 160x128 display
+// AliExpress 1.8" 160x128 display (red PCB)
 // int const xsize = 160, ysize = 128, xoff = 0, yoff = 0, invert = 0, rotate = 0, bgr = 1;
 
-// AliExpress 1.8" 160x128 display
+// AliExpress 1.8" 160x128 display (blue PCB)
 // int const xsize = 160, ysize = 128, xoff = 0, yoff = 0, invert = 0, rotate = 6, bgr = 0;
 
 // Adafruit 1.14" 240x135 display
@@ -78,6 +78,9 @@ int const xsize = 128, ysize = 128, xoff = 2, yoff = 1, invert = 0, rotate = 3, 
 
 // Adafruit 2.0" 320x240 display
 // int const xsize = 320, ysize = 240, xoff = 0, yoff = 0, invert = 1, rotate = 6, bgr = 0;
+
+// AliExpress 2.0" 320x240 display
+// int const xsize = 320, ysize = 240, xoff = 0, yoff = 0, invert = 1, rotate = 0, bgr = 0;
 
 // Adafruit 2.2" 320x240 display
 // int const xsize = 320, ysize = 240, xoff = 0, yoff = 0, invert = 0, rotate = 4, bgr = 1;
