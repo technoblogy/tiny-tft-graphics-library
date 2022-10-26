@@ -1,6 +1,6 @@
-/* Tiny TFT Graphics Library v4 - see http://www.technoblogy.com/show?3WAI
+/* Tiny TFT Graphics Library v5 - see http://www.technoblogy.com/show?3WAI
 
-   David Johnson-Davies - www.technoblogy.com - 11th July 2022
+   David Johnson-Davies - www.technoblogy.com - 26th October 2022
    
    CC BY 4.0
    Licensed under a Creative Commons Attribution 4.0 International license: 
@@ -75,6 +75,15 @@ int const xsize = 128, ysize = 128, xoff = 2, yoff = 1, invert = 0, rotate = 3, 
 
 // Adafruit 1.9" 320x170 display
 // int const xsize = 320, ysize = 170, xoff = 0, yoff = 35, invert = 1, rotate = 0, bgr = 0;
+
+// AliExpress 1.9" 320x170 display
+// int const xsize = 320, ysize = 170, xoff = 0, yoff = 35, invert = 1, rotate = 0, bgr = 0;
+
+// Adafruit 1.47" 320x172 rounded rectangle display
+// int const xsize = 320, ysize = 172, xoff = 0, yoff = 34, invert = 1, rotate = 0, bgr = 0;
+
+// AliExpress 1.47" 320x172 rounded rectangle display
+// int const xsize = 320, ysize = 172, xoff = 0, yoff = 34, invert = 1, rotate = 0, bgr = 0;
 
 // Adafruit 2.0" 320x240 display
 // int const xsize = 320, ysize = 240, xoff = 0, yoff = 0, invert = 1, rotate = 6, bgr = 0;
@@ -495,6 +504,7 @@ void setup() {
   ClearDisplay();
   DisplayOn();
   MoveTo(0,0);
+  // TestChart();
 }
 
 void loop () {
