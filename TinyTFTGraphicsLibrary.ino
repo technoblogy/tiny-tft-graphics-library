@@ -1,6 +1,6 @@
-/* Tiny TFT Graphics Library v5 - see http://www.technoblogy.com/show?3WAI
+/* Tiny TFT Graphics Library v6 - see http://www.technoblogy.com/show?3WAI
 
-   David Johnson-Davies - www.technoblogy.com - 26th October 2022
+   David Johnson-Davies - www.technoblogy.com - 14th January 2024
    
    CC BY 4.0
    Licensed under a Creative Commons Attribution 4.0 International license: 
@@ -394,8 +394,13 @@ void PlotChar (char c) {
   xpos = xpos + 6*scale;
 }
 
+// Plot text from a char array starting at the current plot position
+void PlotChars (char *s) {
+ while (*s) PlotChar(*s++);
+}
+
 // Plot text starting at the current plot position
-void PlotText(PGM_P p) {
+void PlotText (PGM_P p) {
   while (1) {
     char c = pgm_read_byte(p++);
     if (c == 0) return;
