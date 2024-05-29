@@ -31,7 +31,7 @@ int const cs = 3;
 #define PORT_TOGGLE(x)  PINB = (x)
 #define PORT_LOW(x)     PORTB = PORTB & ~((x));
 #define PORT_HIGH(x)    PORTB = PORTB | ((x))
-#define PORT_OUTPUT(x)  DDRB = (x)
+#define PORT_OUTPUT(x)  DDRB = DDRB | (x)
 
 #endif
 
