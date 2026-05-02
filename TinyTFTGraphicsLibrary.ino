@@ -1,6 +1,6 @@
-/* Tiny TFT Graphics Library v8 - see http://www.technoblogy.com/show?5N9Y
+/* Tiny TFT Graphics Library v9 - see http://www.technoblogy.com/show?5N9Y
 
-   David Johnson-Davies - www.technoblogy.com - 29th March 2026
+   David Johnson-Davies - www.technoblogy.com - 2nd May 2026
    
    Licensed under the MIT license: https://opensource.org/licenses/MIT
 */
@@ -106,6 +106,13 @@ const int xsize = 240, ysize = 240, xoff = 0, yoff = 80, invert = 1, rotate = 5,
 
 // AliExpress 2.4" 320x240 display
 // const int xsize = 320, ysize = 240, xoff = 0, yoff = 0, invert = 0, rotate = 2, bgr = 1;
+
+// AliExpress 2.8" 320x240 display
+// const int xsize = 320, ysize = 240, xoff = 0, yoff = 0, invert = 0, rotate = 0, bgr = 0;
+
+// AliExpress 3.5" 480x320 display
+// #define ST7796S
+// const int xsize = 480, ysize = 320, xoff = 0, yoff = 0, invert = 0, rotate = 2, bgr = 1;
 
 #define swap(a, b) do { int tmp = (a); (a) = (b); (b) = tmp; } while (0)
 
@@ -295,14 +302,24 @@ void ClearDisplay () {
   PORT_TOGGLE(1<<cs);
   Command2(CASET, yoff, yoff + ysize - 1);
   Command2(RASET, xoff, xoff + xsize - 1);
+  #if defined(ST7796S)
+  Command(RAMWR);
+  for (int i=0; i<xsize*4; i++) {
+    for (int j=0; j<ysize*4; j++) {
+      PORT_TOGGLE(1<<sck);
+      PORT_TOGGLE(1<<sck);
+    }
+  }
+  #else
   Command(0x3A); Data(0x03);               // 12-bit colour
   Command(RAMWR);                          // Leaves mosi low
   for (int i=0; i<xsize*4; i++) {
     for (int j=0; j<ysize*3; j++) {
-    PORT_TOGGLE(1<<sck);
-    PORT_TOGGLE(1<<sck);
+      PORT_TOGGLE(1<<sck);
+      PORT_TOGGLE(1<<sck);
     }
   }
+  #endif
   Command(0x3A); Data(0x05);               // Back to 16-bit colour
   PORT_TOGGLE(1<<cs);
 }
@@ -440,22 +457,6 @@ void DrawQuadBy (int x1, int y1, int x2, int y2, int x3, int y3) {
   DrawQuad (xpos+x1, ypos+y1, xpos+x1+x2, ypos+y1+y2, xpos+x1+x2+x3, ypos+y1+y2+y3);
 }
 
-void FillQuad (int16_t x1, int16_t y1, int16_t x2, int16_t y2, int16_t x3, int16_t y3) {
-  int x0 = xpos, y0 = ypos, xpos0 = xpos, ypos0 = ypos;
-  // Sort coordinates by y order (y3 >= y2 >= y1 >= y0)
-  if (y0 > y1) { swap(y0, y1); swap(x0, x1); }
-  if (y2 > y3) { swap(y2, y3); swap(x2, x3); }
-  if (y1 > y3) { swap(y1, y3); swap(x1, x3); }
-  if (y0 > y2) { swap(y0, y2); swap(x0, x2); }
-  if (y1 > y2) { swap(y1, y2); swap(x1, x2); }
-  TriangleQuad(x0, y0, x1, y1, x2, y2, x3, y3);
-  xpos = xpos0; ypos = ypos0;
-}
-
-void FillQuadBy (int x1, int y1, int x2, int y2, int x3, int y3) {
-  FillQuad (xpos+x1, ypos+y1, xpos+x1+x2, ypos+y1+y2, xpos+x1+x2+x3, ypos+y1+y2+y3);
-}
-
 void TriangleQuad (int16_t x0, int16_t y0, int16_t x1, int16_t y1,
                   int16_t x2, int16_t y2, int16_t x3, int16_t y3) {
   // Coordinates already in y order (y3 >= y2 >= y1 >= y0)
@@ -498,6 +499,22 @@ void TriangleQuad (int16_t x0, int16_t y0, int16_t x1, int16_t y1,
     // MoveTo(a, y); DrawTo(b, y);
     MoveTo(a, y); FillRect(b - a + 1, 1);
   }
+}
+
+void FillQuad (int16_t x1, int16_t y1, int16_t x2, int16_t y2, int16_t x3, int16_t y3) {
+  int x0 = xpos, y0 = ypos, xpos0 = xpos, ypos0 = ypos;
+  // Sort coordinates by y order (y3 >= y2 >= y1 >= y0)
+  if (y0 > y1) { swap(y0, y1); swap(x0, x1); }
+  if (y2 > y3) { swap(y2, y3); swap(x2, x3); }
+  if (y1 > y3) { swap(y1, y3); swap(x1, x3); }
+  if (y0 > y2) { swap(y0, y2); swap(x0, x2); }
+  if (y1 > y2) { swap(y1, y2); swap(x1, x2); }
+  TriangleQuad(x0, y0, x1, y1, x2, y2, x3, y3);
+  xpos = xpos0; ypos = ypos0;
+}
+
+void FillQuadBy (int x1, int y1, int x2, int y2, int x3, int y3) {
+  FillQuad (xpos+x1, ypos+y1, xpos+x1+x2, ypos+y1+y2, xpos+x1+x2+x3, ypos+y1+y2+y3);
 }
 
 // Plot an ASCII character with bottom left corner at x,y
